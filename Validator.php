@@ -7,7 +7,6 @@ class Validator
     public static function validate($form = [], $campos = [])
     {
 
-        $usuarioModel = new UsuarioModel();
         $erros = [];
 
         foreach ($campos as $campo => $valor) {
@@ -26,11 +25,6 @@ class Validator
                 if (in_array('email', $validacao)) {
                     if (!filter_var($form[$campo], FILTER_VALIDATE_EMAIL)) {
                         $erros["erro_" . $campo . ""] = "Formato de email inválido";
-
-                        //Verifica se já existe um usuário com o email informado
-                    } else if (in_array('verify', $validacao) && $usuarioModel->verificaEmail($form[$campo])) {
-                        $erros["erro_" . $campo . ""] = "O email informado já esta sendo utilizado";
-                    }
                 }
 
                 //Verifica se a senha informada corresponde ao mininimo de requisito para o sistema
